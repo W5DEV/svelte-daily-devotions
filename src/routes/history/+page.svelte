@@ -9,6 +9,7 @@
 	import createNewDevotion from '$lib/api/createNewDevotion';
 	import type { Devotion } from '$lib/types/devotion';
 	import DefaultAvatar from '../../assets/avatar-placeholder.gif';
+	import getUserAvatar from '$lib/utils/getUserAvatar';
 
 	function todaysDate() {
 		const date: Date = new Date();
@@ -72,11 +73,7 @@
 	});
 
 	function getUserProfilePic(user: string) {
-		const userProfilePic = $allUsers?.find((u) => u.name === user)?.image_url;
-		if (userProfilePic == 'null') {
-			return DefaultAvatar;
-		}
-		return userProfilePic;
+		return getUserAvatar(user);
 	}
 
 	function getDailyReading() {
