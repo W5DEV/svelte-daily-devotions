@@ -10,6 +10,7 @@
 	import type { Devotion } from '$lib/types/devotion';
 	import DefaultAvatar from '../../assets/avatar-placeholder.gif';
 	import getUserAvatar from '$lib/utils/getUserAvatar';
+	import getBibleChapterLink from '$lib/utils/getBibleChapterLink';
 
 	let todaysDevotions = $state($devotions);
 	let currentSubmission = $state('');
@@ -150,7 +151,7 @@
 </script>
 
 {#if $currentUser}
-	<div class="flex min-h-screen w-full flex-col items-center justify-start bg-neutral-200 py-8">
+	<div class="flex min-h-screen w-full flex-col items-center justify-start bg-neutral-200 pb-8">
 		<div class="flex h-20 w-full flex-row items-center justify-between bg-cyan-500 px-4">
 			<h1 class="text-2xl font-bold text-white">Devotion Dashboard</h1>
 			<div class="flex flex-row items-center justify-center gap-8">
@@ -164,6 +165,12 @@
 		</div>
 		<div class="items center my-6 flex w-full flex-col justify-center gap-2 text-center">
 			<h2 class="text-2xl font-bold">Your daily reading for today is {getDailyReading()}</h2>
+			<a
+				target="_blank"
+				href={getBibleChapterLink(getDailyReading() as string)}
+				class="text-center text-xl font-semibold text-green-500 hover:underline"
+				>Read {getDailyReading()} Online Now!</a
+			>
 			<a href="/history" class="text-center text-blue-500 hover:underline">View Previous Dates</a>
 		</div>
 		{#if devotionStatus}

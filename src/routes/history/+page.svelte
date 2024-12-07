@@ -10,6 +10,7 @@
 	import type { Devotion } from '$lib/types/devotion';
 	import DefaultAvatar from '../../assets/avatar-placeholder.gif';
 	import getUserAvatar from '$lib/utils/getUserAvatar';
+	import getBibleChapterLink from '$lib/utils/getBibleChapterLink';
 
 	function todaysDate() {
 		const date: Date = new Date();
@@ -172,12 +173,9 @@
 				/>
 			</div>
 		</div>
-		<div class="items center mt-4 flex w-full flex-col justify-center gap-2 text-center">
-			<a href="/dashboard" class="text-center text-blue-500 hover:underline">Return to Today</a>
-		</div>
-		<div class="flex w-full flex-col items-center justify-center gap-2 p-4">
+		<div class="flex w-full flex-col items-center justify-center gap-4 p-4">
 			<input type="date" bind:value={selectedDate} />
-			<h2 class="my-6 text-center text-2xl font-bold">
+			<h2 class="text-center text-2xl font-bold">
 				The daily reading for {claculateDate()} was {getDailyReading()}
 			</h2>
 			<button
@@ -187,6 +185,15 @@
 					calculateTodaysDevotions();
 				}}>View New Date</button
 			>
+			<a
+				target="_blank"
+				href={getBibleChapterLink(getDailyReading() as string)}
+				class="mt-4 text-center text-xl font-semibold text-green-500 hover:underline"
+				>Read {getDailyReading()} Online Now!</a
+			>
+			<div class="items center flex w-full flex-col justify-center gap-2 text-center">
+				<a href="/dashboard" class="text-center text-blue-500 hover:underline">Return to Today</a>
+			</div>
 		</div>
 		<div></div>
 		{#if devotionStatus}
