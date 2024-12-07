@@ -14,6 +14,7 @@
 	let currentSubmission = $state('');
 	let devotionStatus = $state(false);
 	let activeDiscussionId = $state<string | null>(null);
+	let isButtonDisabled = $state(true);
 
 	function claculateDate() {
 		const date = new Date();
@@ -100,7 +101,7 @@
 		if ($currentUser && $token) {
 			const todaysDevotion: Devotion = {
 				user: $currentUser?.name,
-				content: currentSubmission,
+				content: currentSubmission.trim(),
 				date: claculateDate(),
 				parent_id: id
 			};
@@ -135,6 +136,14 @@
 			activeDiscussionId = null;
 		} else {
 			activeDiscussionId = discussionId;
+		}
+	}
+
+	function checkButtonState() {
+		if (currentSubmission.trim().length > 0) {
+			isButtonDisabled = false;
+		} else {
+			isButtonDisabled = true;
 		}
 	}
 </script>
@@ -231,10 +240,11 @@
 							{#if activeDiscussionId === devotion.id}
 								<form class="flex w-full flex-col items-center justify-center gap-4">
 									<textarea
-										onchange={(event) => {
+										onkeyup={(event) => {
 											const target = event.target as HTMLTextAreaElement | null;
 											if (target) {
 												currentSubmission = target.value;
+												checkButtonState();
 											}
 										}}
 										class="h-72 w-full rounded-xl border-gray-300"
@@ -243,6 +253,7 @@
 									></textarea>
 									<button
 										type="button"
+										disabled={isButtonDisabled}
 										class="rounded-md bg-blue-500 px-4 py-2 text-xl text-white disabled:bg-gray-400"
 										onclick={() => handleCommentSubmit(devotion.id as string)}>Submit</button
 									>
@@ -259,10 +270,11 @@
 				>
 				<form class="flex w-full flex-col items-center justify-center gap-4">
 					<textarea
-						onchange={(event) => {
+						onkeyup={(event) => {
 							const target = event.target as HTMLTextAreaElement | null;
 							if (target) {
 								currentSubmission = target.value;
+								checkButtonState();
 							}
 						}}
 						class="h-72 w-full rounded-xl border-none"
@@ -271,6 +283,7 @@
 					></textarea>
 					<button
 						type="button"
+						disabled={isButtonDisabled}
 						class="rounded-md bg-blue-500 px-4 py-2 text-xl text-white disabled:bg-gray-400"
 						onclick={() => handleDevotionSubmit()}>Submit</button
 					>
