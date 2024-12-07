@@ -18,8 +18,8 @@
 	let todaysDevotions = $state($devotions);
 	let currentSubmission = $state('');
 	let devotionStatus = $state(false);
-	let commentAddMode = $state(false);
 	let selectedDate = $state(todaysDate());
+	let activeDiscussionId = $state<string | null>(null);
 
 	function claculateDate() {
 		const date = new Date(selectedDate);
@@ -119,7 +119,7 @@
 			calculateTodaysDevotions();
 			hasUserSubmittedDailyDevotion();
 			currentSubmission = '';
-			commentAddMode = false;
+			activeDiscussionId = null;
 			return;
 		}
 	}
@@ -137,6 +137,14 @@
 			return new Date(a.date).getTime() - new Date(b.date).getTime();
 		});
 		return filteredComments;
+	}
+
+	function toggleCommentForm(discussionId: string) {
+		if (activeDiscussionId === discussionId) {
+			activeDiscussionId = null;
+		} else {
+			activeDiscussionId = discussionId;
+		}
 	}
 </script>
 
@@ -223,7 +231,7 @@
 								<button
 									type="button"
 									class="flex flex-row items-center justify-center gap-1 text-sm font-medium text-black hover:italic"
-									onclick={() => (commentAddMode = !commentAddMode)}
+									onclick={() => toggleCommentForm(devotion.id as string)}
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -242,7 +250,7 @@
 									Add Comment
 								</button>
 							</div>
-							{#if commentAddMode}
+							{#if activeDiscussionId === devotion.id}
 								<form class="flex w-full flex-col items-center justify-center gap-4">
 									<textarea
 										onchange={(event) => {
@@ -251,7 +259,7 @@
 												currentSubmission = target.value;
 											}
 										}}
-										class="h-72 w-full rounded-xl border-none"
+										class="h-72 w-full rounded-xl border-gray-300"
 										name="content"
 										id="content"
 									></textarea>
