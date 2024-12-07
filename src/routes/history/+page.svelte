@@ -40,6 +40,9 @@
 			const dateString = claculateDate();
 			return devotion.date === dateString;
 		});
+		todaysDevotions.sort((a, b) => {
+			return new Date(a.created_at ?? 0).getTime() - new Date(b.created_at ?? 0).getTime();
+		});
 		hasUserSubmittedDailyDevotion();
 	}
 
@@ -137,7 +140,7 @@
 	function calculateDevotionComments(id: string) {
 		const filteredComments = todaysDevotions.filter((devotion) => devotion.parent_id === id);
 		filteredComments.sort((a, b) => {
-			return new Date(a.date).getTime() - new Date(b.date).getTime();
+			return new Date(a.created_at ?? 0).getTime() - new Date(b.created_at ?? 0).getTime();
 		});
 		return filteredComments;
 	}
@@ -241,7 +244,7 @@
 							<div class="flex w-full flex-row items-center justify-end gap-4 p-4">
 								<button
 									type="button"
-									class="flex flex-row items-center justify-center gap-1 text-sm font-medium text-black hover:italic"
+									class="flex flex-row items-center justify-center gap-1 text-sm font-medium text-blue-600 hover:italic"
 									onclick={() => toggleCommentForm(devotion.id as string)}
 								>
 									<svg
