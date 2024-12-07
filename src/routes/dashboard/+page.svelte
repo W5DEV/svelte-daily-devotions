@@ -8,7 +8,7 @@
 	import getAllUsers from '$lib/api/getAllUsers';
 	import createNewDevotion from '$lib/api/createNewDevotion';
 	import type { Devotion } from '$lib/types/devotion';
-	import { stopPropagation } from 'svelte/legacy';
+	import DefaultAvatar from '../../assets/avatar-placeholder.gif';
 
 	let todaysDevotions = $state($devotions);
 	let currentSubmission = $state('');
@@ -61,10 +61,11 @@
 	});
 
 	function getUserProfilePic(user: string) {
-		if (!$currentUser || $currentUser.image_url === 'null') {
-			return '/avatar-placeholder.gif';
+		const userProfilePic = $allUsers?.find((u) => u.name === user)?.image_url;
+		if (userProfilePic == 'null') {
+			return DefaultAvatar;
 		}
-		return $allUsers?.find((u) => u.name === user)?.image_url;
+		return userProfilePic;
 	}
 
 	function getDailyReading() {
@@ -75,8 +76,6 @@
 
 	function hasUserSubmittedDailyDevotion() {
 		if (todaysDevotions.some((devotion) => devotion.user === $currentUser?.name)) {
-			console.log('devotionStatus: ', devotionStatus);
-			console.log('todaysDevotions: ', todaysDevotions);
 			devotionStatus = true;
 		}
 	}
@@ -141,7 +140,7 @@
 </script>
 
 {#if $currentUser}
-	<div class="flex min-h-screen w-full flex-col items-center justify-start bg-neutral-200">
+	<div class="flex min-h-screen w-full flex-col items-center justify-start bg-neutral-200 py-8">
 		<div class="flex h-20 w-full flex-row items-center justify-between bg-cyan-500 px-4">
 			<h1 class="text-2xl font-bold text-white">Devotion Dashboard</h1>
 			<div class="flex flex-row items-center justify-center gap-8">

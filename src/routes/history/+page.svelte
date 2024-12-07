@@ -8,6 +8,7 @@
 	import getAllUsers from '$lib/api/getAllUsers';
 	import createNewDevotion from '$lib/api/createNewDevotion';
 	import type { Devotion } from '$lib/types/devotion';
+	import DefaultAvatar from '../../assets/avatar-placeholder.gif';
 
 	function todaysDate() {
 		const date: Date = new Date();
@@ -67,10 +68,11 @@
 	});
 
 	function getUserProfilePic(user: string) {
-		if (!$currentUser || $currentUser.image_url === 'null') {
-			return '/avatar-placeholder.gif';
+		const userProfilePic = $allUsers?.find((u) => u.name === user)?.image_url;
+		if (userProfilePic == 'null') {
+			return DefaultAvatar;
 		}
-		return $allUsers?.find((u) => u.name === user)?.image_url;
+		return userProfilePic;
 	}
 
 	function getDailyReading() {
@@ -179,7 +181,7 @@
 		</div>
 		<div></div>
 		{#if devotionStatus}
-			<div class="flex w-full flex-col gap-4 px-8">
+			<div class="flex w-full flex-col gap-4 px-8 py-8">
 				{#each caclculateMainDevotions() as devotion}
 					<div class="flex min-h-24 w-full flex-col gap-2 rounded-xl bg-white p-2">
 						<div
