@@ -93,6 +93,7 @@
 			devotions.set(updatedDevotions);
 			calculateTodaysDevotions();
 			hasUserSubmittedDailyDevotion();
+			currentSubmission = '';
 			return;
 		}
 	}
@@ -109,6 +110,7 @@
 			devotions.set(updatedDevotions);
 			calculateTodaysDevotions();
 			hasUserSubmittedDailyDevotion();
+			currentSubmission = '';
 			commentAddMode = false;
 			return;
 		}
