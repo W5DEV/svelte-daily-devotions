@@ -105,6 +105,7 @@
 			</div>
 		</div>
 		<button
+			type="button"
 			disabled={phoneError || passwordError}
 			onclick={handleSubmit}
 			class="rounded-md bg-blue-500 p-2 text-white disabled:bg-gray-400">Submit</button

@@ -8,15 +8,22 @@
 	import getAllUsers from '$lib/api/getAllUsers';
 	import createNewDevotion from '$lib/api/createNewDevotion';
 	import type { Devotion } from '$lib/types/devotion';
-	import { stopPropagation } from 'svelte/legacy';
+
+	function todaysDate() {
+		const date: Date = new Date();
+		date.setDate(date.getDate() - 1);
+		return date;
+	}
 
 	let todaysDevotions = $state($devotions);
 	let currentSubmission = $state('');
 	let devotionStatus = $state(false);
 	let commentAddMode = $state(false);
+	let selectedDate = $state(todaysDate());
 
 	function claculateDate() {
-		const date = new Date();
+		const date = new Date(selectedDate);
+		date.setDate(date.getDate() + 1);
 		const day = date
 			.getDate()
 			.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
@@ -31,6 +38,7 @@
 			const dateString = claculateDate();
 			return devotion.date === dateString;
 		});
+		hasUserSubmittedDailyDevotion();
 	}
 
 	onMount(async () => {
@@ -56,8 +64,6 @@
 			return;
 		}
 		calculateTodaysDevotions();
-
-		hasUserSubmittedDailyDevotion();
 	});
 
 	function getUserProfilePic(user: string) {
@@ -71,9 +77,11 @@
 	}
 
 	function hasUserSubmittedDailyDevotion() {
+		if (todaysDevotions.length === 0) {
+			devotionStatus = false;
+			return;
+		}
 		if (todaysDevotions.some((devotion) => devotion.user === $currentUser?.name)) {
-			console.log('devotionStatus: ', devotionStatus);
-			console.log('todaysDevotions: ', todaysDevotions);
 			devotionStatus = true;
 		}
 	}
@@ -136,10 +144,23 @@
 				<img class="h-12 rounded-full" src={$currentUser.image_url} alt="User Avatar" />
 			</div>
 		</div>
-		<div class="items center my-6 flex w-full flex-col justify-center gap-2 text-center">
-			<h2 class="text-2xl font-bold">Your daily reading for today is {getDailyReading()}</h2>
-			<a href="/history" class="text-center text-blue-500 hover:underline">View Previous Dates</a>
+		<div class="items center mt-4 flex w-full flex-col justify-center gap-2 text-center">
+			<a href="/history" class="text-center text-blue-500 hover:underline">Return to Today</a>
 		</div>
+		<div class="flex w-full flex-col items-center justify-center gap-2 p-4">
+			<input type="date" bind:value={selectedDate} />
+			<h2 class="my-6 text-2xl font-bold">
+				The daily reading for {claculateDate()} was {getDailyReading()}
+			</h2>
+			<button
+				type="button"
+				class="rounded-md bg-blue-500 px-4 py-2 text-xl text-white disabled:bg-gray-400"
+				onclick={() => {
+					calculateTodaysDevotions();
+				}}>View New Date</button
+			>
+		</div>
+		<div></div>
 		{#if devotionStatus}
 			<div class="flex w-full flex-col gap-4 px-8">
 				{#each caclculateMainDevotions() as devotion}
@@ -239,7 +260,7 @@
 		{:else}
 			<div class="flex w-full flex-col items-center justify-center bg-neutral-300 p-8">
 				<span class="mb-4 w-full px-8 text-center"
-					>Please Submit your discussion for today before viewing others.</span
+					>Please Submit your discussion for {selectedDate} before viewing others.</span
 				>
 				<form class="flex w-full flex-col items-center justify-center gap-4">
 					<textarea
