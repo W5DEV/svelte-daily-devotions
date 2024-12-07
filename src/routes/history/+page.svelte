@@ -203,12 +203,12 @@
 						<div
 							class="flex w-full flex-row items-center justify-start gap-2 border-b border-neutral-300 p-4"
 						>
-							<p class="text-lg font-semibold">{devotion.user}</p>
 							<img
 								class="h-8 w-8 rounded-full"
 								src={getUserProfilePic(devotion.user)}
 								alt="User Avatar"
 							/>
+							<p class="text-lg font-semibold">{devotion.user}</p>
 						</div>
 						<p class="border-b border-neutral-300 px-8 pb-6 pt-4 text-lg font-medium italic">
 							{devotion.content}
