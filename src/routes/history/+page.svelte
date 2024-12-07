@@ -173,31 +173,23 @@
 				/>
 			</div>
 		</div>
-		<div class="flex w-full flex-col items-center justify-center gap-4 p-4">
-			<input type="date" bind:value={selectedDate} />
+		<div class="my-6 flex w-full flex-col items-center justify-center gap-2">
 			<h2 class="text-center text-2xl font-bold">
 				The daily reading for {claculateDate()} was {getDailyReading()}
 			</h2>
-			<button
-				type="button"
-				class="rounded-md bg-blue-500 px-4 py-2 text-xl text-white disabled:bg-gray-400"
-				onclick={() => {
-					calculateTodaysDevotions();
-				}}>View New Date</button
-			>
 			<a
 				target="_blank"
 				href={getBibleChapterLink(getDailyReading() as string)}
-				class="mt-4 text-center text-xl font-semibold text-green-500 hover:underline"
+				class="text-center text-xl font-semibold text-green-500 hover:underline"
 				>Read {getDailyReading()} Online Now!</a
 			>
-			<div class="items center flex w-full flex-col justify-center gap-2 text-center">
+			<div class="items center flex w-full flex-col justify-center text-center">
 				<a href="/dashboard" class="text-center text-blue-500 hover:underline">Return to Today</a>
 			</div>
+			<input type="date" bind:value={selectedDate} onchange={() => calculateTodaysDevotions()} />
 		</div>
-		<div></div>
 		{#if devotionStatus}
-			<div class="flex w-full flex-col gap-4 px-8 py-8">
+			<div class="flex w-full flex-col gap-4 p-8">
 				{#each caclculateMainDevotions() as devotion}
 					<div class="flex min-h-24 w-full flex-col gap-2 rounded-xl bg-white p-2">
 						<div

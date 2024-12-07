@@ -174,7 +174,7 @@
 			<a href="/history" class="text-center text-blue-500 hover:underline">View Previous Dates</a>
 		</div>
 		{#if devotionStatus}
-			<div class="flex w-full flex-col gap-4 px-8">
+			<div class="flex w-full flex-col gap-4 p-8">
 				{#each caclculateMainDevotions() as devotion}
 					<div class="flex min-h-24 w-full flex-col gap-2 rounded-xl bg-white p-2">
 						<div
