@@ -67,6 +67,9 @@
 	});
 
 	function getUserProfilePic(user: string) {
+		if (!$currentUser || $currentUser.image_url === 'null') {
+			return '/avatar-placeholder.gif';
+		}
 		return $allUsers?.find((u) => u.name === user)?.image_url;
 	}
 
@@ -141,15 +144,19 @@
 			<h1 class="text-2xl font-bold text-white">Devotion Dashboard</h1>
 			<div class="flex flex-row items-center justify-center gap-8">
 				<h1 class="text-2xl font-bold text-white">{$currentUser.name}</h1>
-				<img class="h-12 rounded-full" src={$currentUser.image_url} alt="User Avatar" />
+				<img
+					class="h-12 rounded-full"
+					src={getUserProfilePic($currentUser.name)}
+					alt="User Avatar"
+				/>
 			</div>
 		</div>
 		<div class="items center mt-4 flex w-full flex-col justify-center gap-2 text-center">
-			<a href="/history" class="text-center text-blue-500 hover:underline">Return to Today</a>
+			<a href="/dashboard" class="text-center text-blue-500 hover:underline">Return to Today</a>
 		</div>
 		<div class="flex w-full flex-col items-center justify-center gap-2 p-4">
 			<input type="date" bind:value={selectedDate} />
-			<h2 class="my-6 text-2xl font-bold">
+			<h2 class="my-6 text-center text-2xl font-bold">
 				The daily reading for {claculateDate()} was {getDailyReading()}
 			</h2>
 			<button

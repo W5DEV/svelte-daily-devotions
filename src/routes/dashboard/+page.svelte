@@ -61,6 +61,9 @@
 	});
 
 	function getUserProfilePic(user: string) {
+		if (!$currentUser || $currentUser.image_url === 'null') {
+			return '/avatar-placeholder.gif';
+		}
 		return $allUsers?.find((u) => u.name === user)?.image_url;
 	}
 
@@ -133,7 +136,11 @@
 			<h1 class="text-2xl font-bold text-white">Devotion Dashboard</h1>
 			<div class="flex flex-row items-center justify-center gap-8">
 				<h1 class="text-2xl font-bold text-white">{$currentUser.name}</h1>
-				<img class="h-12 rounded-full" src={$currentUser.image_url} alt="User Avatar" />
+				<img
+					class="h-12 rounded-full"
+					src={getUserProfilePic($currentUser.name)}
+					alt="User Avatar"
+				/>
 			</div>
 		</div>
 		<div class="items center my-6 flex w-full flex-col justify-center gap-2 text-center">
