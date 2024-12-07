@@ -2,7 +2,7 @@ export interface Devotion {
 	id?: string;
 	content: string;
 	user: string;
-	type: string;
-	parent_id: string;
-	createdAt: string;
+	date: string;
+	parent_id?: string;
+	created_at?: string;
 }

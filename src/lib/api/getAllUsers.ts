@@ -1,8 +1,8 @@
-import type { Devotion } from '$lib/types/devotion';
+import type { User } from '$lib/types/user';
 
-export default async function getDevotions(token: string): Promise<Devotion[]> {
+export default async function getAllUsers(token: string): Promise<User[]> {
 	try {
-		const response = await fetch('https://devotions.greatidea.dev/api/devotions/', {
+		const response = await fetch('https://devotions.greatidea.dev/api/users/', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',

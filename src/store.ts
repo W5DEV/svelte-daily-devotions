@@ -17,3 +17,8 @@ export const devotions = writable<Devotion[]>([]);
 devotions.subscribe((val) => {
 	if (browser) return (localStorage.devotions = val);
 });
+
+export const allUsers = writable<User[]>([]);
+allUsers.subscribe((val) => {
+	if (browser) return (localStorage.allUsers = val);
+});

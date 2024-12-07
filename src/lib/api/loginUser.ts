@@ -9,7 +9,7 @@ export default async function loginUser({ phone, password }: ILoginInfo): Promis
 		password: password
 	};
 	try {
-		const response = await fetch('http://localhost:34500/api/auth/login', {
+		const response = await fetch('https://devotions.greatidea.dev/api/auth/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

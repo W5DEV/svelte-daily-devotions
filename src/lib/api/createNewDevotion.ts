@@ -5,7 +5,7 @@ export default async function createNewDevotion(
 	token: string
 ): Promise<Devotion> {
 	try {
-		const response = await fetch('https://devotions.greatidea.dev/api/devotion/', {
+		const response = await fetch('https://devotions.greatidea.dev/api/devotions/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -18,7 +18,8 @@ export default async function createNewDevotion(
 			throw new Error(response.statusText);
 		}
 
-		return await response.json();
+		const data = await response.json();
+		return data.data;
 	} catch (error) {
 		console.error('createNewDevotion', error);
 		throw error;

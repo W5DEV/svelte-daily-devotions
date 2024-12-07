@@ -2,7 +2,7 @@ import type { User } from '$lib/types/user';
 
 export default async function getUserInfo(token: string): Promise<User> {
 	try {
-		const response = await fetch('http://localhost:34500/api/users/me', {
+		const response = await fetch('https://devotions.greatidea.dev/api/users/me', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
