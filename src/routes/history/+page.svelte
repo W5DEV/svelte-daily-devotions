@@ -166,7 +166,7 @@
 			<div class="flex flex-row items-center justify-center gap-8">
 				<h1 class="text-2xl font-bold text-white">{$currentUser.name}</h1>
 				<img
-					class="h-12 rounded-full"
+					class="h-12 w-12 rounded-full"
 					src={getUserProfilePic($currentUser.name)}
 					alt="User Avatar"
 				/>
@@ -198,7 +198,7 @@
 						>
 							<p class="text-lg font-semibold">{devotion.user}</p>
 							<img
-								class="h-8 rounded-full"
+								class="h-8 w-8 rounded-full"
 								src={getUserProfilePic(devotion.user)}
 								alt="User Avatar"
 							/>
@@ -219,7 +219,7 @@
 											<div class="flex min-w-16 flex-row items-center justify-end gap-1">
 												<p class="font-medium">{comment.user}</p>
 												<img
-													class="h-6 rounded-full"
+													class="h-6 w-6 rounded-full"
 													src={getUserProfilePic(comment.user)}
 													alt="User Avatar"
 												/>
