@@ -1,18 +1,33 @@
 <script lang="ts">
-	let name = $state('');
+	import loginUser from '$lib/api/loginUser';
+	import { onMount } from 'svelte';
+	import { currentUser, token } from '../store';
+	import getUserInfo from '$lib/api/getUserInfo';
+	import { goto } from '$app/navigation';
+
+	let password = $state('');
 	let phone = $state('');
 
-	let nameError = $state(false);
+	let passwordError = $state(false);
 	let phoneError = $state(false);
 
-	function capitalizeFirstLetter(str: string) {
-		return str.charAt(0).toUpperCase() + str.slice(1);
-	}
+	onMount(async () => {
+		if ($currentUser) {
+			goto('/dashboard');
+		} else {
+			if (!$token) {
+				return;
+			}
+			const userInfo = await getUserInfo($token);
+			currentUser.set(userInfo);
+			goto('/dashboard');
+		}
+	});
 
-	function handleSubmit(event: { preventDefault: () => void }) {
+	async function handleSubmit(event: { preventDefault: () => void }) {
 		event.preventDefault();
-		if (name.length === 0) {
-			nameError = true;
+		if (password.length === 0) {
+			passwordError = true;
 		}
 		if (phone.length === 0) {
 			phoneError = true;
@@ -21,11 +36,16 @@
 		if (phone.length !== 10) {
 			phoneError = true;
 		}
-		if (nameError || phoneError) {
+		if (passwordError || phoneError) {
 			return;
 		}
-		name = capitalizeFirstLetter(name).trim();
-		console.log(phone, name);
+		const userToken = await loginUser({ phone: phone, password: password });
+		token.set(userToken);
+		if ($token) {
+			const userInfo = await getUserInfo($token);
+			currentUser.set(userInfo);
+			goto('/dashboard');
+		}
 	}
 </script>
 
@@ -36,28 +56,6 @@
 	</p>
 	<form class="flex w-full max-w-md flex-col gap-8 p-8">
 		<div class="flex flex-col">
-			<label for="name" class="text-lg">First Name</label>
-			<input
-				type="text"
-				id="name"
-				name="name"
-				class={`rounded-md border border-gray-300 p-2 ${nameError ? 'border-red-500' : ''}`}
-				placeholder="John"
-				onkeydown={(event) => {
-					nameError = false;
-					const target = event.target as HTMLInputElement | null;
-					if (target) {
-						name = target.value;
-					}
-				}}
-			/>
-			<div class="flex h-6 w-full items-center justify-center">
-				<span class="text-center text-xs font-light text-red-500"
-					>{nameError ? 'First Name is required' : ' '}</span
-				>
-			</div>
-		</div>
-		<div class="flex flex-col">
 			<label for="phone" class="text-lg">Phone Number (10 Digits)</label>
 			<input
 				maxlength="10"
@@ -66,8 +64,10 @@
 				name="phone"
 				class={`rounded-md border border-gray-300 p-2 ${phoneError ? 'border-red-500' : ''}`}
 				placeholder="6012345555"
-				onkeydown={(event) => {
+				onkeydown={() => {
 					phoneError = false;
+				}}
+				onchange={(event) => {
 					const target = event.target as HTMLInputElement | null;
 					if (target) {
 						phone = target.value;
@@ -80,8 +80,32 @@
 				>
 			</div>
 		</div>
+		<div class="flex flex-col">
+			<label for="password" class="text-lg">Password</label>
+			<input
+				type="text"
+				id="password"
+				name="password"
+				class={`rounded-md border border-gray-300 p-2 ${passwordError ? 'border-red-500' : ''}`}
+				placeholder="******"
+				onkeydown={() => {
+					passwordError = false;
+				}}
+				onchange={(event) => {
+					const target = event.target as HTMLInputElement | null;
+					if (target) {
+						password = target.value;
+					}
+				}}
+			/>
+			<div class="flex h-6 w-full items-center justify-center">
+				<span class="text-center text-xs font-light text-red-500"
+					>{passwordError ? 'Password is required' : ' '}</span
+				>
+			</div>
+		</div>
 		<button
-			disabled={phoneError || nameError}
+			disabled={phoneError || passwordError}
 			onclick={handleSubmit}
 			class="rounded-md bg-blue-500 p-2 text-white disabled:bg-gray-400">Submit</button
 		>
