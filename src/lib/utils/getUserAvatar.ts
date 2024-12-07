@@ -1,4 +1,4 @@
-import ChuckAvatar from '../../assets/chuck.jpg';
+import ChuckAvatar from '../../assets/chuck.png';
 import JohnAvatar from '../../assets/john.png';
 import BeckyAvatar from '../../assets/becky.jpg';
 import AvatarPlaceholder from '../../assets/avatar-placeholder.gif';
