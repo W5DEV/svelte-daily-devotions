@@ -50,7 +50,7 @@
 </script>
 
 <section class="flex min-h-screen w-full flex-col items-center justify-start bg-neutral-200">
-	<div class="flex h-20 w-full flex-row items-center justify-start bg-cyan-500 px-4">
+	<div class="flex h-20 w-full flex-row items-center justify-start bg-yellow-900 px-4">
 		<h1 class="text-2xl font-bold text-white">Devotion Dashboard</h1>
 	</div>
 	<div class="flex w-full flex-col items-center justify-center py-8">

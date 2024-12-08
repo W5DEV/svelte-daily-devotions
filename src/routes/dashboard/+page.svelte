@@ -152,7 +152,7 @@
 
 {#if $currentUser}
 	<div class="flex min-h-screen w-full flex-col items-center justify-start bg-neutral-200 pb-8">
-		<div class="flex h-20 w-full flex-row items-center justify-between bg-cyan-500 px-4">
+		<div class="flex h-20 w-full flex-row items-center justify-between bg-yellow-900 px-4">
 			<h1 class="text-2xl font-bold text-white">Devotion Dashboard</h1>
 			<div class="flex flex-row items-center justify-center gap-8">
 				<h1 class="text-2xl font-bold text-white">{$currentUser.name}</h1>
@@ -171,7 +171,9 @@
 				class="text-center text-xl font-semibold text-green-500 hover:underline"
 				>Read {getDailyReading()} Online Now!</a
 			>
-			<a href="/history" class="text-center text-blue-500 hover:underline">View Previous Dates</a>
+			<a href="/history" class="text-center text-green-800 underline hover:italic"
+				>View Previous Dates</a
+			>
 		</div>
 		{#if devotionStatus}
 			<div class="flex w-full flex-col gap-4 p-8">
@@ -225,7 +227,7 @@
 							<div class="flex w-full flex-row items-center justify-end gap-4 p-4">
 								<button
 									type="button"
-									class="flex flex-row items-center justify-center gap-1 text-sm font-medium text-blue-600 hover:italic"
+									class="flex flex-row items-center justify-center gap-1 text-sm font-medium text-green-600 hover:italic"
 									onclick={() => toggleCommentForm(devotion.id as string)}
 								>
 									<svg
