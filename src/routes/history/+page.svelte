@@ -162,7 +162,7 @@
 
 {#if $currentUser}
 	<div class="flex min-h-screen w-full flex-col items-center justify-start bg-neutral-200">
-		<div class="flex h-20 w-full flex-row items-center justify-between bg-yellow-900 px-4">
+		<div class="flex h-20 w-full flex-row items-center justify-between bg-green-800 px-4">
 			<h1 class="text-2xl font-bold text-white">Devotion Dashboard</h1>
 			<div class="flex flex-row items-center justify-center gap-8">
 				<h1 class="text-2xl font-bold text-white">{$currentUser.name}</h1>
@@ -180,7 +180,7 @@
 			<a
 				target="_blank"
 				href={getBibleChapterLink(getDailyReading() as string)}
-				class="text-center text-xl font-semibold text-green-500 hover:underline"
+				class="text-center text-xl font-semibold text-red-700 hover:underline"
 				>Read {getDailyReading()} Online Now!</a
 			>
 			<div class="items center flex w-full flex-col justify-center text-center">
@@ -279,7 +279,7 @@
 									<button
 										type="button"
 										disabled={isButtonDisabled}
-										class="rounded-md bg-blue-500 px-4 py-2 text-xl text-white disabled:bg-gray-400"
+										class="rounded-md bg-green-700 px-4 py-2 text-xl text-white disabled:bg-gray-400"
 										onclick={() => handleCommentSubmit(devotion.id as string)}>Submit</button
 									>
 								</form>
@@ -309,7 +309,7 @@
 					<button
 						type="button"
 						disabled={isButtonDisabled}
-						class="rounded-md bg-blue-500 px-4 py-2 text-xl text-white disabled:bg-gray-400"
+						class="rounded-md bg-green-500 px-4 py-2 text-xl text-white disabled:bg-gray-400"
 						onclick={() => handleDevotionSubmit()}>Submit</button
 					>
 				</form>

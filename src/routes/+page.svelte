@@ -50,7 +50,7 @@
 </script>
 
 <section class="flex min-h-screen w-full flex-col items-center justify-start bg-neutral-200">
-	<div class="flex h-20 w-full flex-row items-center justify-start bg-yellow-900 px-4">
+	<div class="flex h-20 w-full flex-row items-center justify-start bg-green-800 px-4">
 		<h1 class="text-2xl font-bold text-white">Devotion Dashboard</h1>
 	</div>
 	<div class="flex w-full flex-col items-center justify-center py-8">
@@ -114,7 +114,7 @@
 				type="button"
 				disabled={phoneError || passwordError}
 				onclick={handleSubmit}
-				class="rounded-md bg-blue-500 p-2 text-white disabled:bg-gray-400">Submit</button
+				class="rounded-md bg-green-700 p-2 text-white disabled:bg-gray-400">Submit</button
 			>
 		</form>
 	</div>
