@@ -37,7 +37,7 @@
 		return dateString;
 	}
 
-	function calculateTodaysDevotions() {
+	async function calculateTodaysDevotions() {
 		todaysDevotions = $devotions?.filter((devotion) => {
 			const dateString = claculateDate();
 			return devotion.date === dateString;
@@ -84,6 +84,7 @@
 	}
 
 	function hasUserSubmittedDailyDevotion() {
+		devotionStatus = false;
 		if (todaysDevotions.length === 0) {
 			devotionStatus = false;
 			return;

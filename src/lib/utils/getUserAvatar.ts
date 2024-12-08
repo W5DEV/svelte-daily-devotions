@@ -1,6 +1,7 @@
+import BeckyAvatar from '../../assets/becky.jpg';
 import ChuckAvatar from '../../assets/chuck.png';
 import JohnAvatar from '../../assets/john.png';
-import BeckyAvatar from '../../assets/becky.jpg';
+import MandyAvatar from '../../assets/mandy.png';
 import AvatarPlaceholder from '../../assets/avatar-placeholder.gif';
 
 export default function getUserAvatar(user: string): string {
@@ -36,7 +37,7 @@ export default function getUserAvatar(user: string): string {
 		case 'Leslie':
 			return AvatarPlaceholder;
 		case 'Mandy':
-			return AvatarPlaceholder;
+			return MandyAvatar;
 		case 'Matthew':
 			return AvatarPlaceholder;
 		case 'Morgan':
