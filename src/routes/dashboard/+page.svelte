@@ -180,16 +180,26 @@
 				{#each caclculateMainDevotions() as devotion}
 					<div class="flex min-h-24 w-full flex-col gap-2 rounded-xl bg-white p-2">
 						<div
-							class="flex w-full flex-row items-center justify-start gap-2 border-b border-neutral-300 p-4"
+							class="flex w-full flex-row items-center justify-between border-b border-neutral-300 p-4"
 						>
-							<img
-								class="h-8 w-8 rounded-full"
-								src={getUserProfilePic(devotion.user)}
-								alt="User Avatar"
-							/>
-							<p class="text-lg font-semibold">{devotion.user}</p>
+							<div class="flex flex-row items-center justify-start gap-2">
+								<img
+									class="h-8 w-8 rounded-full"
+									src={getUserProfilePic(devotion.user)}
+									alt="User Avatar"
+								/>
+								<p class="text-lg font-semibold">{devotion.user}</p>
+							</div>
+							<div class="flex flex-row items-center justify-end">
+								<p class="text-sm font-normal">
+									{new Date(devotion.created_at as string).toLocaleTimeString('en-US', {
+										hour: '2-digit',
+										minute: '2-digit'
+									})}
+								</p>
+							</div>
 						</div>
-						<p class="border-b border-neutral-300 px-8 pb-6 pt-4 text-lg font-normal italic">
+						<p class="border-b border-neutral-300 px-4 pb-6 pt-4 text-base font-normal italic">
 							{@html devotion.content.replace(/\n/g, '<br />')}
 						</p>
 						<div>
@@ -197,19 +207,27 @@
 								{#each calculateDevotionComments(devotion.id as string) as comment}
 									<div class="flex min-h-24 w-full flex-row gap-2 rounded-xl bg-white py-4">
 										<div
-											class="flex w-full flex-row items-center justify-end gap-2 border-b border-neutral-300"
+											class="flex w-full flex-col items-center justify-end gap-2 border-b border-neutral-300 px-4"
 										>
-											<p class="flex-1 px-8 pb-6 pt-4 text-left italic">
+											<div class="flex w-full flex-row items-center justify-between pb-2">
+												<p class="text-sm font-normal">
+													{new Date(comment.created_at as string).toLocaleTimeString('en-US', {
+														hour: '2-digit',
+														minute: '2-digit'
+													})}
+												</p>
+												<div class="flex flex-row items-center justify-end gap-1">
+													<p class="font-medium">{comment.user}</p>
+													<img
+														class="h-6 w-6 rounded-full"
+														src={getUserProfilePic(comment.user)}
+														alt="User Avatar"
+													/>
+												</div>
+											</div>
+											<p class="flex-1 px-2 pb-6 pt-4 text-left text-base font-light italic">
 												{@html comment.content.replace(/\n/g, '<br />')}
 											</p>
-											<div class="flex min-w-16 flex-row items-center justify-end gap-1">
-												<p class="font-medium">{comment.user}</p>
-												<img
-													class="h-6 w-6 rounded-full"
-													src={getUserProfilePic(comment.user)}
-													alt="User Avatar"
-												/>
-											</div>
 										</div>
 									</div>
 								{/each}
