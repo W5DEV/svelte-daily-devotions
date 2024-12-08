@@ -189,8 +189,8 @@
 							/>
 							<p class="text-lg font-semibold">{devotion.user}</p>
 						</div>
-						<p class="border-b border-neutral-300 px-8 pb-6 pt-4 text-lg font-medium italic">
-							{devotion.content}
+						<p class="border-b border-neutral-300 px-8 pb-6 pt-4 text-lg font-normal italic">
+							{@html devotion.content.replace(/\n/g, '<br />')}
 						</p>
 						<div>
 							{#if calculateDevotionComments(devotion.id as string).length > 0}
@@ -199,8 +199,8 @@
 										<div
 											class="flex w-full flex-row items-center justify-end gap-2 border-b border-neutral-300"
 										>
-											<p class="flex-1 px-8 pb-6 pt-4 text-right italic">
-												{comment.content}
+											<p class="flex-1 px-8 pb-6 pt-4 text-left italic">
+												{@html comment.content.replace(/\n/g, '<br />')}
 											</p>
 											<div class="flex min-w-16 flex-row items-center justify-end gap-1">
 												<p class="font-medium">{comment.user}</p>
