@@ -241,7 +241,7 @@
 													/>
 												</div>
 											</div>
-											<p class="flex-1 px-2 pb-6 pt-4 text-left text-base font-light italic">
+											<p class="w-full text-wrap break-words pb-6 pt-4 text-base font-light italic">
 												{@html comment.content.replace(/\n/g, '<br />')}
 											</p>
 										</div>
